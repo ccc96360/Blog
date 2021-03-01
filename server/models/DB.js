@@ -1,11 +1,9 @@
-import {USER, PAASWD, SCHEMA} from "./Config.js"
-
-
+const {USER, PASSWD, SCHEMA} = require('./Config.js')
 const mysql = require('mysql')
 const db = mysql.createConnection({
     host: 'localhost',//host 객체 = 마리아 DB가 존재하는 서버의 주소
     user: `${USER}`,//user객체 -마리아 DB 계정
-    password: `${PAASWD}`,
+    password: `${PASSWD}`,
     database: `${SCHEMA}`
 })
 db.connect(function(err){
