@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React,{useState} from 'react'
 import {useDispatch} from 'react-redux';
-import {loginUser} from '../../../_actions/user_action';
+import {loginUser} from '../../redux/_actions/user_action';
 import {Formik} from 'formik'
 import * as Yup from 'yup'
 import { Form, Input, Button, Checkbox, Typography } from 'antd';

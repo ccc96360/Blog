@@ -8,15 +8,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
-import {rootReducer} from './_reducers/index.js';
 import {Provider} from 'react-redux'
 import {ConnectedRouter} from 'connected-react-router'
-import { applyMiddleware, createStore } from 'redux';
-import promiseMiddleware from 'redux-promise';
-import ReduxThunk from 'redux-thunk';
 
 import store, {history} from './store'
 ReactDOM.render( 

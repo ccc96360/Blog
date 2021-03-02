@@ -1,11 +1,11 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import {Switch,Route, Redirect} from "react-router-dom"
-import LandingPage from '../components/views/LandingPage/LandingPage'
-import LoginPage from '../components/views/LoginPage/LoginPage'
-import RegisterPage from '../components/views/RegisterPage/RegisterPage'
-import NavBar from '../components/views/NavBar/NavBar'
-import Header from '../components/views/Header/Header'
-import Footer from '../components/views/Footer/Footer'
+import LandingPage from '../components/LandingPage/LandingPage'
+import LoginPage from '../components/LoginPage/LoginPage'
+import RegisterPage from '../components/RegisterPage/RegisterPage'
+import NavBar from '../components/NavBar/NavBar'
+import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 import Auth from '../hoc/auth'
 import {Container} from 'reactstrap'
 //import {} from '../components/views/'

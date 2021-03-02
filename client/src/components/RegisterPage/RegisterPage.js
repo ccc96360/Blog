@@ -1,12 +1,10 @@
 import React from 'react';
-import moment from "moment";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {registerUser} from '../../../_actions/user_action';
+import {registerUser} from '../../redux/_actions/user_action';
 import {useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {Form, Input, Button,} from 'antd';
-import {history} from '../../../store'
 
 const formItemLayout = {
     labelCol: {
