@@ -1,0 +1,10 @@
+.landing{
+    float: left;
+}
+.left{
+    background-color: red;
+    border: 5px;
+    border-style: solid;
+}
+.center{background-color: green;}
+.right{background-color: blue;}

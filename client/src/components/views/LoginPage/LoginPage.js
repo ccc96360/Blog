@@ -21,25 +21,6 @@ function LoginPage(props) {
         setRememberMe(!rememberMe)
     }
     const initialID = localStorage.getItem("rememberMe") ? localStorage.getItem("rememberMe") : '';
-    /*
-    const onSubmitHandler = (event) => {
-        event.preventDefault();//이걸 안하면 페이지가 Refresh된다.
-
-        let body = {
-            id: ID,
-            password: Password
-        }
-        dispatch(loginUser(body)).then(response=>{
-            if(response.payload.loginSuccess){
-                props.history.push('/')
-            }
-            else{
-                alert("error")
-            }
-        })
-    }
-    */
-
     return(
         <Formik 
             initialValues = {{
@@ -60,6 +41,7 @@ function LoginPage(props) {
                     }
                     dispatch(loginUser(dataToSubmit))
                         .then(response => {
+                            console.log("하아.."+response.payload)
                             if(response.payload.loginSuccess){
                                 window.localStorage.setItem('userID', response.payload.userID);
                                 if(rememberMe === true){

@@ -6,6 +6,7 @@ import {registerUser} from '../../../_actions/user_action';
 import {useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {Form, Input, Button,} from 'antd';
+import {history} from '../../../store'
 
 const formItemLayout = {
     labelCol: {
@@ -65,8 +66,10 @@ function RegisterPage(props) {
                         role: values.role,
                     }
                     dispatch(registerUser(dataToSubmit)).then(response=>{
+                        console.log("Payload", response.payload.success);
                         if(response.payload.success){
                             props.history.push("/login")
+                            //history.push("/login")
                         }else{
                             alert(response.payload.err)
                         }

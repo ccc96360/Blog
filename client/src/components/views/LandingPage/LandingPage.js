@@ -6,12 +6,22 @@ function LandingPage(props){
 
     
     return(
-        <>
-            <div className="app">
-                <FaCode style={{ fontSize: '4rem' }} /><br />
-                <span style={{ fontSize: '2rem' }}>Let's Start Coding!</span>
+        <div className="landing">
+            <div className="left"> 
+                <div className="profile">
+
+                </div>
+                <div className="tags">
+
+                </div>
             </div>
-        </>
+            <div className="center">
+
+            </div>
+            <div className="right">
+
+            </div>
+        </div>
     )
 }
 

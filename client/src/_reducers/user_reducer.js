@@ -1,6 +1,8 @@
 import {LOGIN_USER, REGISTER_USER,AUTH_USER, LOGOUT_USER} from '../_actions/types'
 
-export default function(prevState = {}, action){
+const initialState = {}
+
+export default function(prevState = initialState, action){
     switch (action.type) {
         case LOGIN_USER:
             return {...prevState, loginSuccess: action.payload}

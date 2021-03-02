@@ -6,6 +6,7 @@ import { USER_SERVER } from '../components/Config.js';
 export function loginUser(dataToSubmit){
     const request = axios.post(`${USER_SERVER}/login`,dataToSubmit)
                         .then(response =>response.data)
+    console.log(request)
     return{
         type:LOGIN_USER,
         payload: request
@@ -14,6 +15,7 @@ export function loginUser(dataToSubmit){
 export function registerUser(dataToSubmit){
     const request = axios.post(`${USER_SERVER}/register`,dataToSubmit)
                         .then(response =>response.data)
+    console.log(request)
     return{
         type:REGISTER_USER,
         payload: request
