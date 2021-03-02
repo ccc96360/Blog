@@ -11,7 +11,6 @@ function LandingPage(props){
                 <FaCode style={{ fontSize: '4rem' }} /><br />
                 <span style={{ fontSize: '2rem' }}>Let's Start Coding!</span>
             </div>
-            <div style={{ float: 'right' }}>HEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOO</div>
         </>
     )
 }
