@@ -1,5 +1,19 @@
 #main-footer {
     background: #132130;
     color: #fff;
-    
+}
+#page-header {
+    height: 150px;
+    color:#fff;
+    background: url('./img/header.jpg');
+    background-position: 55% 50%;
+    background-attachment: fixed;
+    border-bottom: 1px #eee solid;
+    padding-top: 35px;
+}
+#Login-Page {
+    width: 300px;
+}
+#id{
+    background: #fff;
 }

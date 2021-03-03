@@ -12,8 +12,8 @@ import {Container} from 'reactstrap'
 
 const MyRouter = () => (
     <Suspense fallback={(<div>Loading...</div>)}>
-        <Header />
         <NavBar />
+        <Header />
         <Container>
             <Switch>
             <Route exact path="/" component={Auth(LandingPage, null)} />

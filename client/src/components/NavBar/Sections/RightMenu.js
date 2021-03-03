@@ -1,9 +1,9 @@
 import React from 'react'
-import { Menu } from 'antd';
 import axios from 'axios';
-//import { USER_SERVER } from '../../../Config';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import {Row, Col} from 'reactstrap'
+
 
 function RightMenu(props) {
     const user = useSelector(state => state.user)
@@ -18,22 +18,35 @@ function RightMenu(props) {
       };
       if (user.userData && !user.userData.isAuth) {
         return (
-          <Menu mode={props.mode}>
-            <Menu.Item key="mail">
-              <a href="/login">SignIn</a>
-            </Menu.Item>
-            <Menu.Item key="app">
-              <a href="/register">SignUp</a>
-            </Menu.Item>
-          </Menu>
+          <div className="text-center p-1 h6 font-weight-light mt-3">
+            <Row >
+                <Col>
+                    <Link to="/login" className="btn btn-primary text-white text-decoration-none ">
+                      SignIn
+                    </Link>
+                </Col>
+                <Col>
+                    <Link to="/register" className="btn btn-primary text-white text-decoration-none">
+                      SignUp
+                    </Link>
+                </Col>
+            </Row>
+          </div>
         )
-      } else {
+      } else{
         return (
-          <Menu mode={props.mode}>
-            <Menu.Item key="logout">
-              <a onClick={logoutHandler}>Logout</a>
-            </Menu.Item>
-          </Menu>
+          <Row className="text-center p-1 h6 font-weight-light mt-3">
+              <Col>
+              <Link to="/post" className="btn btn-success text-white text-decoration-none">
+                Post
+              </Link>
+            </Col>
+            <Col>
+              <Link onClick={logoutHandler} className="btn btn-primary text-white text-decoration-none">
+                Logout
+              </Link>
+            </Col>
+          </Row>
         )
       }
 }

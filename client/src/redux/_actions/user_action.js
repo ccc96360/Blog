@@ -3,7 +3,6 @@ import {LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER} from './types'
 
 
 export function loginUser(dataToSubmit){
-    console.log(process.env.REACT_APP_SERVER_ROUTES)
     const request = axios.post(`${process.env.REACT_APP_SERVER_ROUTES}/login`,dataToSubmit)
                         .then(response =>response.data)
     return{

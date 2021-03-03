@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {Fragment, useState} from 'react'
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
-import { Drawer, Button} from 'antd';
-import Icon from '@ant-design/icons';
+import {Collapse, Container, Nav, Navbar, NavbarToggler} from 'reactstrap';
 import './Sections/Navbar.css';
+import { Link } from 'react-router-dom';
+import {useSelector} from 'react-redux'
 
 function NavBar() {
+    const user = useSelector(state => state.user)
     const [visible, setVisible] = useState(false)
 
     const showDrawer = () => {
@@ -17,37 +19,22 @@ function NavBar() {
     };
 
     return(
-    <nav className="menu" style={{ position: 'fixed', zIndex: 5, width: '100%' }}>
-      <div className="menu__logo">
-        <a href="/">DevMinJ</a>
-      </div>
-      <div className="menu__container">
-        <div className="menu_left">
-          <LeftMenu mode="horizontal" />
-        </div>
-        <div className="menu_rigth">
-          <RightMenu mode="horizontal" />
-        </div>
-        <Button
-          className="menu__mobile-button"
-          type="primary"
-          onClick={showDrawer}
-        >
-          <Icon type="align-right" />
-        </Button>
-        <Drawer
-          title="Basic Drawer"
-          placement="right"
-          className="menu_drawer"
-          closable={false}
-          onClose={onClose}
-          visible={visible}
-        >
-          <LeftMenu mode="inline" />
-          <RightMenu mode="inline" />
-        </Drawer>
-      </div>
-    </nav>
+      <Fragment>
+        <Navbar color="dark" expand="lg" className="sticky-top">
+          <Container>
+            <Link to="/" className="text-white text-decoration-none mr-5">
+              오늘의 유행은 내일의 구식
+            </Link>
+            <LeftMenu />
+            <Collapse isOpen={true} navbar>
+              <Nav className="ml-auto d-flex justify-content-around" navbar>
+              <NavbarToggler mode = "horizontal"/>
+              <h1 color="dark"  className="text-white"><RightMenu mode = "horizontal" /></h1>
+              </Nav>
+            </Collapse>
+          </Container>
+        </Navbar>
+      </Fragment>
     )
 }
 
