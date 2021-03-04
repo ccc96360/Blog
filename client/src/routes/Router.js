@@ -8,18 +8,26 @@ import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import Auth from '../hoc/auth'
 import {Container} from 'reactstrap'
+import PostWrite from './normalRoute/PostWrite';
+import PostDetail from './normalRoute/PostDetail';
+import Search from './normalRoute/Search';
+import CategoryResult from './normalRoute/CategoryResult';
 //import {} from '../components/views/'
 
 const MyRouter = () => (
     <Suspense fallback={(<div>Loading...</div>)}>
         <NavBar />
         <Header />
-        <Container>
+        <Container id="main-body">
             <Switch>
             <Route exact path="/" component={Auth(LandingPage, null)} />
+            <Route exact path="/posts" component={Auth(PostWrite, null)} />
+            <Route exact path="/posts/:id" component={Auth(PostDetail, null)} />
+            <Route exact path="/posts/category/:categoryName" component={Auth(CategoryResult, null)} />
+            <Route exact path="/search/:searchTerm" component={Auth(Search, null)} />
             <Route exact path="/login" component={Auth(LoginPage, false)} />
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
-            <Redirect from= "*" to="/" component={Auth(LandingPage,null)}/>
+            <Redirect from= "*" to="/"/>
             </Switch>
         </Container>
         <Footer />
