@@ -1,0 +1,41 @@
+create table users(
+	id varchar(20) not null,
+	name varchar(20) not null,
+	email varchar(50) not null,
+	password varchar(255) not null,
+	token varchar(255) default null,
+	role varchar(10) default null,
+	registerdate timestamp default now(),
+	primary key(id)
+)engine=InnoDB default charset=utf8;
+
+create table posts(
+	postid int AUTO_INCREMENT,
+	owner varchar(20),
+	title varchar(50) not null,
+	contents text not null,
+	date timestamp default now(),
+	imageurl varchar(500),
+	view int default -2,
+	primary key(postid)
+)engine=InnoDB default charset=utf8;
+
+create table posts_categories(
+	postid int not null,
+	categoryname varchar(20) not null,
+	primary key(postid, categoryname) 
+)engine=InnoDB default charset=utf8;
+
+create table comments(
+	commentid int auto_increment,
+	owner varchar(20) not null,
+	contents varchar(512) not null, 
+	postid varchar(20) not null,
+	date timestamp default now(),
+	primary key(commentid) 
+)engine=InnoDB default charset=utf8;
+
+create table categories(
+	categoryname varchar(20) not null,
+	primary key(categoryname) 
+)engine=InnoDB default charset=utf8;
