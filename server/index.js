@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(cookieParser())
 
 app.use('/api/users', require('./routes/users'))
+app.use('/api/post', require('./routes/post'))
 
 app.get('/api/hello',(req,res) =>{
     res.send('안녕하세요~!')
