@@ -17,6 +17,7 @@ app.get('/api/hello',(req,res) =>{
 })
  
 const port = process.env.PORT || 5000
+console.log(port);
 app.listen(port, ()=> console.log(`Example app test ${port}`))
 
 
