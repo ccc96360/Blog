@@ -1,9 +1,10 @@
 import axios from 'axios'
 import {LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER} from './types'
 
+const route = process.env.REACT_APP_SERVER_ROUTES_USER
 
 export function loginUser(dataToSubmit){
-    const request = axios.post(`${process.env.REACT_APP_SERVER_ROUTES}/login`,dataToSubmit)
+    const request = axios.post(`${route}/login`,dataToSubmit)
                         .then(response =>response.data)
     return{
         type:LOGIN_USER,
@@ -11,7 +12,7 @@ export function loginUser(dataToSubmit){
     }
 }
 export function registerUser(dataToSubmit){
-    const request = axios.post(`${process.env.REACT_APP_SERVER_ROUTES}/register`,dataToSubmit)
+    const request = axios.post(`${route}/register`,dataToSubmit)
                         .then(response =>response.data)
     return{
         type:REGISTER_USER,
@@ -19,7 +20,7 @@ export function registerUser(dataToSubmit){
     }
 }
 export function auth(){
-    const request = axios.get(`${process.env.REACT_APP_SERVER_ROUTES}/auth`)
+    const request = axios.get(`${route}/auth`)
                         .then(response =>response.data)
     return{
         type:AUTH_USER,
@@ -27,7 +28,7 @@ export function auth(){
     }
 }
 export function logoutUser(){
-    const request = axios.get(`${process.env.REACT_APP_SERVER_ROUTES}/logout`)
+    const request = axios.get(`${route}/logout`)
     .then(response => response.data);
 
     return {
