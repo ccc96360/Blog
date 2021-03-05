@@ -12,6 +12,7 @@ import PostWrite from './normalRoute/PostWrite';
 import PostDetail from './normalRoute/PostDetail';
 import Search from './normalRoute/Search';
 import CategoryResult from './normalRoute/CategoryResult';
+import PostCardList from './normalRoute/PostCardList';
 //import {} from '../components/views/'
 
 const MyRouter = () => (
@@ -21,6 +22,7 @@ const MyRouter = () => (
         <Container id="main-body">
             <Switch>
             <Route exact path="/" component={Auth(LandingPage, null)} />
+            <Route exact path="/test" component={Auth(PostCardList, null)} />
             <Route exact path="/posts" component={Auth(PostWrite, null)} />
             <Route exact path="/posts/:id" component={Auth(PostDetail, null)} />
             <Route exact path="/posts/category/:categoryName" component={Auth(CategoryResult, null)} />

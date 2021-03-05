@@ -10,6 +10,6 @@ export const createRootReducer = (history) =>
     combineReducers({
         router: connectRouter(history),
         user,
-
+        post,
     })
 

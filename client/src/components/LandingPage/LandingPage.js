@@ -4,7 +4,6 @@ import { FaCode } from "react-icons/fa";
 
 function LandingPage(props){
 
-    console.log(process.env.REACT_APP_SERVER_ROUTES)
     return(
         <Fragment>
             <div className="app">

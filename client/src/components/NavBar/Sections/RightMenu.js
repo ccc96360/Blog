@@ -8,7 +8,7 @@ import {Row, Col} from 'reactstrap'
 function RightMenu(props) {
     const user = useSelector(state => state.user)
     const logoutHandler = () => {
-        axios.get(`${process.env.REACT_APP_SERVER_ROUTES}/logout`).then(response => {
+        axios.get(`${process.env.REACT_APP_SERVER_ROUTES_USER}/logout`).then(response => {
           if (response.status === 200) {
             props.history.push("/login");
           } else {
@@ -42,7 +42,7 @@ function RightMenu(props) {
               </Link>
             </Col>
             <Col>
-              <Link onClick={logoutHandler} className="btn btn-primary text-white text-decoration-none">
+              <Link to = "#" onClick={logoutHandler} className="btn btn-primary text-white text-decoration-none">
                 Logout
               </Link>
             </Col>

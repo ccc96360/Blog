@@ -41,7 +41,6 @@ function LoginPage(props) {
                     }
                     dispatch(loginUser(dataToSubmit))
                         .then(response => {
-                            console.log("하아.."+response.payload)
                             if(response.payload.loginSuccess){
                                 window.localStorage.setItem('userID', response.payload.userID);
                                 if(rememberMe === true){

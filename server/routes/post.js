@@ -17,7 +17,7 @@ router.get('/', (req, res) =>{//req = request res = response
         if(err){
             console.log(err)
             res.status(500).json({
-                success: false,
+                postLoadSuccess: false,
                 err: err
             })
         }
@@ -29,7 +29,7 @@ router.get('/', (req, res) =>{//req = request res = response
                 console.log(resJson[i].imageurl);
             }
             res.status(200).json({
-                success: true
+                content: resJson
             })
         }
     })
@@ -37,7 +37,7 @@ router.get('/', (req, res) =>{//req = request res = response
 router.post('/',(req, res) =>{
     const {title, owner, contents, fileUrl} = req.body
     let qry = `insert into posts(title, owner, contents, imageUrl) values(?,?,?,?)`
-    params = [title, owner, contents, fileUrl||"https://source.unplash.com/random/301x201"]
+    params = [title, owner, contents, fileUrl||"https://source.unsplash.com/random/301x201"]
     db.query(qry, params, function(err, qryRes, fields){
         if(err){
             console.log("/api/post/ ERR!")

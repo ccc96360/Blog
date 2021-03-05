@@ -16,7 +16,7 @@ function LeftMenu(props) {
           </Link>
         </Col>
         <Col>
-          <Link to="#" className="text-white text-decoration-none">
+          <Link to="/" className="text-white text-decoration-none">
             Projects
           </Link>
         </Col>

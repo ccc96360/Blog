@@ -6,12 +6,13 @@ const route = process.env.REACT_APP_SERVER_ROUTES_POST
 export function loadPost(){
     const request = axios.get(`${route}/`)
                         .then(response=>response.data)
+    console.log(request)
     return{
         type: POST_LOADING,
         payload: request
     }
 }
-export function wirtePost(dataToSubmit){
+export function writePost(dataToSubmit){
     const request = axios.post(`${route}/`, dataToSubmit)
                         .then(response=>response.data)
     return{
