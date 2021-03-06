@@ -37,7 +37,7 @@ function RightMenu(props) {
         return (
           <Row className="text-center p-1 h6 font-weight-light mt-3">
               <Col>
-              <Link to="/post" className="btn btn-success text-white text-decoration-none">
+              <Link to="/posts" className="btn btn-success text-white text-decoration-none">
                 Post
               </Link>
             </Col>

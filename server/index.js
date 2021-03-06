@@ -17,12 +17,7 @@ app.get('/api/hello',(req,res) =>{
     res.send('안녕하세요~!')
 })
  
-<<<<<<< HEAD
-const port = process.env.PORT || 5000
-console.log(port);
-=======
 const port = process.env.PORT
->>>>>>> server/feat/routes
 app.listen(port, ()=> console.log(`Example app test ${port}`))
 
 

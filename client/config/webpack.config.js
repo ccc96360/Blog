@@ -30,7 +30,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const postcssNormalize = require('postcss-normalize');
 //CKEditor5 Settings
 const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
-const CKEditorWebpackPlugin = requrie("@ckeditor/ckeditor5-dev-webpack-plugin")
+const CKEditorWebpackPlugin = require("@ckeditor/ckeditor5-dev-webpack-plugin")
 
 const appPackageJson = require(paths.appPackageJson);
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const multerS3 = require('multer-s3')
 const path = require('path')
-const AWS = require('aws-sdk')
+let AWS = require('aws-sdk')
 const dotenv = require('dotenv')
 const multer = require('multer')
 dotenv.config()
@@ -12,14 +12,13 @@ const router = express.Router();
 const mydb = require('../models/DB')
 const db = mydb.db
 // S3설정
-const s3 = new AWS.S3({
-    accesskeyId: process.env.AWS_KEY,
-    secretAccessKey: process.env.AWS_PRIVATE_KEY
-})
+AWS.config.loadFromPath(__dirname+"/../awsconfig.json")
+const s3 = new AWS.S3()
+console.log(s3)
 const uploadS3 = multer({
     storage: multerS3({
         s3,
-        bucket: "devminj",
+        bucket: "devminj/upload/",
         region: "ap-northeast-2",
         key(req, file, cb){
             const ext = path.extname(file.originalname);
@@ -29,6 +28,7 @@ const uploadS3 = multer({
     }),
     limits:{fileSize: 100*1024*1024},
 })
+console.log(uploadS3.storage)
 // /api/post
 router.get('/', (req, res) =>{//req = request res = response
     const id = req.body.id
@@ -73,6 +73,7 @@ router.post('/',(req, res) =>{
 })
 // /api/post/image
 router.post('/image',uploadS3.array("upload", 5), async(req, res, next)=>{
+    console.log("/api/post/image")
     try {
         console.log(req.files.map((v) => v.location));
         res.json({

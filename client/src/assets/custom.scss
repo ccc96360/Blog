@@ -27,3 +27,20 @@
     height: 20rem;
     object-fit: cover;
 }
+
+//CKEditor5 Setting
+.ck{
+    .ck-editor{
+        min-width: 100%;
+    }
+}
+.ck-editor__editable{
+    max-height: 80rem;
+    min-height: 20rem;
+    min-width: 65rem;
+}
+.ck-ditor_editable_inline{
+    max-height: 80rem;
+    min-height: 20rem;
+    min-width: 65rem;
+}

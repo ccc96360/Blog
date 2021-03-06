@@ -23,7 +23,7 @@ const MyRouter = () => (
             <Switch>
             <Route exact path="/" component={Auth(LandingPage, null)} />
             <Route exact path="/test" component={Auth(PostCardList, null)} />
-            <Route exact path="/posts" component={Auth(PostWrite, null)} />
+            <Route exact path="/posts" component={Auth(PostWrite, true, true)} />
             <Route exact path="/posts/:id" component={Auth(PostDetail, null)} />
             <Route exact path="/posts/category/:categoryName" component={Auth(CategoryResult, null)} />
             <Route exact path="/search/:searchTerm" component={Auth(Search, null)} />
