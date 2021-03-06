@@ -113,6 +113,27 @@ router.post('/', uploadS3.none(),(req, res) =>{
         })
     })
 })
+
+router.get('/:id', (req,res) =>{
+    const postid = req.params.id
+    console.log(postid+"번 게시물 불러온다잉~")
+    let qry = `select * from posts where postid = ?`
+    db.query(qry, [postid], function(err, qryRes, fields){
+        if(err){
+            console.log(err)
+            res.status(500).json({
+                onePostLoadSuccess: false
+            })
+        }
+        else{
+            let resJson = JSON.parse(JSON.stringify(qryRes))
+            console.log(resJson);
+            res.status(500).json({
+                info: resJson[0]
+            })
+        }
+    })
+})
 // /api/post/image
 router.post('/image',uploadS3.array("upload", 5), async(req, res, next)=>{
     console.log("/api/post/image")
