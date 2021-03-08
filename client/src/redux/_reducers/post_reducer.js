@@ -1,4 +1,4 @@
-import {POST_LOADING, POST_WRITE} from '../_actions/types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL} from '../_actions/types'
 
 const initialState = {
     posts :{
@@ -12,6 +12,8 @@ export default function(prevState = initialState, action){
             return {...prevState, posts: action.payload}
         case POST_WRITE:
             return {...prevState, success: action.payload}
+        case POST_DETAIL:
+            return {...prevState, datail: action.payload}
         default:
             return prevState;
     }

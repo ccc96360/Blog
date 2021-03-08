@@ -6,3 +6,4 @@ export const LOGOUT_USER = 'logout_user'
 /*******************POST*********************/
 export const POST_WRITE = 'post_write'
 export const POST_LOADING = 'post_LOADING'
+export const POST_DETAIL = 'post_detail'

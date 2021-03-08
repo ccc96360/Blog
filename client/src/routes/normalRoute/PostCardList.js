@@ -16,6 +16,8 @@ function PostCardList() {
             console.log(response)
         })
     },[dispatch])
+    console.log("PCL");
+    console.log(posts);
     return (
         <Fragment>
             <Helmet title="Home"/>
