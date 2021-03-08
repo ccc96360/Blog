@@ -1,6 +1,14 @@
 import {LOGIN_USER, REGISTER_USER,AUTH_USER, LOGOUT_USER} from '../_actions/types'
 
-const initialState = {}
+const initialState = {
+    userData:{
+        id: "",
+        email: "",
+        isAdmin: false,
+        isAuth: false,
+        role: "None"
+    }
+}
 
 export default function(prevState = initialState, action){
     switch (action.type) {

@@ -19,6 +19,7 @@ export function writePost(dataToSubmit){
         type: POST_WRITE,
         paylaod: request
     }
+<<<<<<< HEAD
 
 }
 export function detailPost(dataToSubmit){
@@ -29,4 +30,6 @@ export function detailPost(dataToSubmit){
         paylaod: request
     }
 
+=======
+>>>>>>> server/feat/route/post
 }
