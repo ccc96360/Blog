@@ -12,6 +12,7 @@ app.use(cookieParser())
 
 app.use('/api/users', require('./routes/users'))
 app.use('/api/post', require('./routes/post'))
+app.use('/api/comment', require('./routes/comment'))
 
 app.get('/api/hello',(req,res) =>{
     res.send('안녕하세요~!')
