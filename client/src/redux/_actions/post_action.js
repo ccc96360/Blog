@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {POST_LOADING, POST_WRITE} from './types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL} from './types'
 
 const route = process.env.REACT_APP_SERVER_ROUTES_POST
 
@@ -19,5 +19,4 @@ export function writePost(dataToSubmit){
         type: POST_WRITE,
         paylaod: request
     }
-
 }
