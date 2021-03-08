@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {Helmet} from 'react-helmet'
-import {Button, Col, Row} from 'reactstrap'
+import {Button, Col, Container, Row} from 'reactstrap'
 import {detailPost,deletePost} from '../../redux/_actions/post_action'
+import {loadComments,uplaodComment} from '../../redux/_actions/comment_action'
 import {CKEditor} from '@ckeditor/ckeditor5-react'
 import { Link, withRouter } from 'react-router-dom'
 import { GrowingSpinner } from '../../components/Spinner/Spinner'
@@ -10,24 +11,23 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPenAlt, faCommentDots, faMouse, faPencilAlt} from "@fortawesome/free-solid-svg-icons"
 import BalloonEditor from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor'
 import { editorConfiguration } from '../../components/Editor/EditorConfig'
+import Comment from '../../components/Comment/Comment'
 function PostDetail(props) {
     const post = useSelector((state) => state.post)
     const user = useSelector((state) => state.user)
-    console.log("POST_DETAIL");
+    const comments = useSelector((state) => state.comment)
     const {id,isAuth, isAdmin} = user.userData
     console.log(user.userData);
-    console.log(id,isAuth,isAdmin)
-    console.log("-----------")
     const dispatch = useDispatch()
     useEffect(async ()=>{
-        dispatch(detailPost(props.match.params.id))
-    },[])
-    console.log(post)
-    console.log(post.detail)
-    console.log(post.detail.info)
-    console.log(post.detail.info.contents)
-    const pInfo = post.detail.info
+        dispatch(detailPost(props.match.params.id));
+        dispatch(loadComments(props.match.params.id));
 
+    },[])
+    const pInfo = post.detail.info
+    console.log(pInfo)
+    const cInfo = comments.comments.info;
+    console.log(cInfo)
     const onDeleteClick = () => {
         dispatch(deletePost())
     }
@@ -74,8 +74,11 @@ function PostDetail(props) {
                         <Fragment>
                             <div className="font-weight-bold text-big">
                                 <span className="mr-3">
-                                    <Button color = "info"> 
+                                    <Button color = "info ml-1"> 
                                         Category 불러와야해
+                                    </Button>
+                                    <Button color = "info ml-1"> 
+                                        Category 불러와야해2
                                     </Button>
                                 </span>
                                 {pInfo.title}
@@ -97,7 +100,7 @@ function PostDetail(props) {
                         &nbsp;&nbsp;
                         <FontAwesomeIcon icon={faCommentDots}/>
                         &nbsp;
-                        <span>댓글 개수</span>
+                        <span>{cInfo.length}</span>
                         &nbsp;&nbsp;
                         <FontAwesomeIcon icon={faMouse}/>
                         <span>{pInfo.view}</span>
@@ -110,12 +113,50 @@ function PostDetail(props) {
                             disabled="true"
                         />
                     </Row>
+                    <Row>
+                        <Container className="mb-3 border border-blue rounded">
+                            {
+                                Array.isArray(cInfo) ? cInfo.map(
+                                    ({owner, contents, date, commentid}) => (
+                                        <div key={commentid}>
+                                            <Row className="justify-content-between p-2">
+                                                <div className="font-weight-bold">
+                                                    {owner}
+                                                </div>
+                                                <div className="text-small">
+                                                    <span className="font-weight-bold">
+                                                        {
+                                                            date.split("T")[0]
+                                                        }
+                                                    </span>
+                                                    <span>
+                                                        {" " + date.split("T")[1].split(".")[0]}
+                                                    </span>
+                                                </div>
+                                            </Row>
+                                            <Row className="p-2">
+                                                <div>
+                                                    {contents}
+                                                </div>
+                                            </Row>
+                                        </div>
+                                    )
+                                ): "댓글"
+                            }
+                            <Comment 
+                                id = {props.match.params.id}
+                                userid = {id}
+                                isAuth = {isAuth}
+                            />
+                        </Container>
+                    </Row>
                 </Fragment>
             ):(
                 <h1>h</h1>
             )}
         </>
     )
+    console.log(comments)
     return (
         <div>
             <Helmet title={`${pInfo.title}`}/>
