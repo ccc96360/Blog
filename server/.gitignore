@@ -5,4 +5,4 @@
 /models/Config.js
 
 .env
-./awsconfig.json
+awsconfig.json
