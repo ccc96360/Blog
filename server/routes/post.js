@@ -128,7 +128,7 @@ router.get('/:id', (req,res) =>{
         else{
             let resJson = JSON.parse(JSON.stringify(qryRes))
             console.log(resJson);
-            res.status(500).json({
+            res.status(200).json({
                 info: resJson[0]
             })
         }

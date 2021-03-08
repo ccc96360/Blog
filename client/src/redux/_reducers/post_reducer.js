@@ -1,8 +1,11 @@
-import {POST_LOADING, POST_WRITE, POST_DETAIL} from '../_actions/types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE} from '../_actions/types'
 
 const initialState = {
     posts :{
         content: []
+    },
+    detail :{
+        info:{}
     }
 }
 
@@ -13,7 +16,9 @@ export default function(prevState = initialState, action){
         case POST_WRITE:
             return {...prevState, success: action.payload}
         case POST_DETAIL:
-            return {...prevState, datail: action.payload}
+            return {...prevState, detail: action.payload}
+        case POST_DELETE:
+            return {...prevState, success: action.payload}
         default:
             return prevState;
     }
