@@ -33,11 +33,11 @@ export function detailPost(id){
     }
 }
 
-export function deletePost(dataToSubmit){
-    const request = axios.post(`${route}/:id/delete`, dataToSubmit)
+export function deletePost(id){
+    const request = axios.post(`${route}/${id}/delete`)
                         .then(response=>response.data)
     return{
-        type: POST_DETAIL,
+        type: POST_DELETE,
         payload: request
     }
 }

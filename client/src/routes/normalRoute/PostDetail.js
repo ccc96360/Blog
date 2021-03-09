@@ -16,12 +16,13 @@ function PostDetail(props) {
     const post = useSelector((state) => state.post)
     const user = useSelector((state) => state.user)
     const comments = useSelector((state) => state.comment)
+    const postID = props.match.params.id
     const {id,isAuth, isAdmin} = user.userData
     console.log(user.userData);
     const dispatch = useDispatch()
     useEffect(async ()=>{
-        dispatch(detailPost(props.match.params.id));
-        dispatch(loadComments(props.match.params.id));
+        dispatch(detailPost(postID));
+        dispatch(loadComments(postID));
 
     },[])
     const pInfo = post.detail.info
@@ -29,7 +30,13 @@ function PostDetail(props) {
     const cInfo = comments.comments.info;
     console.log(cInfo)
     const onDeleteClick = () => {
-        dispatch(deletePost())
+        if(isAdmin){
+            dispatch(deletePost(postID))
+            props.history.push("/test")
+        }
+        else{
+            alert("관리자만 접근 할 수 있습니다.")
+        }
     }
     const EditButton = (
         <Fragment>
@@ -40,7 +47,7 @@ function PostDetail(props) {
                     </Link>
                 </Col>
                 <Col className="col-md-3 mr-md-3">
-                    <Link to={`/post/${props.match.params.id}/edit`} className="btn btn-success btn-block">
+                    <Link to={`/post/${postID}/edit`} className="btn btn-success btn-block">
                         Edit Post
                     </Link>
                 </Col>
@@ -144,7 +151,7 @@ function PostDetail(props) {
                                 ): "댓글"
                             }
                             <Comment 
-                                id = {props.match.params.id}
+                                id = {postID}
                                 userid = {id}
                                 isAuth = {isAuth}
                             />
