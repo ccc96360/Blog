@@ -13,6 +13,7 @@ import PostDetail from './normalRoute/PostDetail';
 import Search from './normalRoute/Search';
 import CategoryResult from './normalRoute/CategoryResult';
 import PostCardList from './normalRoute/PostCardList';
+import PostEdit from './normalRoute/PostEdit';
 //import {} from '../components/views/'
 
 const MyRouter = () => (
@@ -21,10 +22,11 @@ const MyRouter = () => (
         <Header />
         <Container id="main-body">
             <Switch>
-            <Route exact path="/" component={Auth(LandingPage, null)} />
-            <Route exact path="/test" component={Auth(PostCardList, null)} />
+            <Route exact path="/default" component={Auth(LandingPage, null)} />
+            <Route exact path="/" component={Auth(PostCardList, null)} />
             <Route exact path="/posts" component={Auth(PostWrite, true, true)} />
             <Route exact path="/posts/:id" component={Auth(PostDetail, null)} />
+            <Route exact path="/posts/:id/edit" component={Auth(PostEdit, true, true)} />
             <Route exact path="/posts/category/:categoryName" component={Auth(CategoryResult, null)} />
             <Route exact path="/search/:searchTerm" component={Auth(Search, null)} />
             <Route exact path="/login" component={Auth(LoginPage, false)} />

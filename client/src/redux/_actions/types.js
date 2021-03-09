@@ -8,6 +8,7 @@ export const POST_WRITE = 'post_write'
 export const POST_LOADING = 'post_LOADING'
 export const POST_DETAIL = 'post_detail'
 export const POST_DELETE = 'post_delete'
+export const POST_EDIT = 'post_edit'
 /******************COMMENT********************/
 export const COMMENT_WRITE = 'comment_write'
 export const COMMENT_LOADING = 'comment_loading'

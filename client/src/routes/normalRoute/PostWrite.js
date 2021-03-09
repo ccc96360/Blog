@@ -1,28 +1,44 @@
 import React , {useState}from 'react'
 import {Form, FormGroup, Label, Input, Button} from "reactstrap"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import { withRouter } from 'react-router-dom'
 import {CKEditor} from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 import {editorConfiguration} from '../../components/Editor/EditorConfig'
 import Myinit from '../../components/Editor/UploadAdapter'
 import dotenv from 'dotenv'
+import { writePost } from '../../redux/_actions/post_action'
 
-function PostWrite() {
+function PostWrite(props) {
     dotenv.config()
     const dispatch = useDispatch()
-    const [form, setValues] = useState({title: "", contents: "", imageUrl: ""})
+    const post = useSelector(state => state.post)
+    const pInfo = post.detail.info
+    const user = useSelector((state) => state.user)
+    const {id,isAuth, isAdmin} = user.userData
+    const [form, setValues] = useState({title: "", contents: "", imageUrl: "", category:""})
 
+    const onSubmit = async(e)=>{
+        await e.preventDefault();
+        const {title, contents, imageUrl, category} = form
+        console.log("!!!!",category, typeof(category))
+        console.log("!!!!",category.split('#'));
+        if(category.match('#')){
+            const dataToSubmit = {title: title, owner: id, contents: contents, fileUrl: imageUrl, category: category.split('#').slice(1)}
+            console.log("DATA TO SUBMIT IN WRITE!!!",dataToSubmit);
+            dispatch(writePost(dataToSubmit)).then(res=>{
+                props.history.push(`/posts/${res.payload.postid}`)
+            })
+        }else{
+            alert("카테고리에 #없음!")
+        }
+    }
     const onChange = (e) => {
+        console.log(form);
         setValues({
             ...form,
             [e.target.name]: e.target.value
         })
-    }
-
-    const onSubmit = async(e)=>{
-        await e.preventDefault()
-        const {title, contents, imageUrl, category} = form
     }
 
     const getDataFromCKEditor = (event, editor) =>{
@@ -85,10 +101,10 @@ function PostWrite() {
                     <CKEditor 
                         editor = {ClassicEditor}
                         config = {editorConfiguration}
-                        onInit = {Myinit}
+                        onReady = {Myinit}
                         onBlur = {getDataFromCKEditor}
                     />
-                    <Button color="success" block className="mt-3 col-md-2 offset-md-10 mb-3">
+                    <Button color="success" block className="mt-3 col-md-2 offset-md-10 mb-3" onClick={onSubmit}>
                         제출하기
                     </Button>
                 </FormGroup>

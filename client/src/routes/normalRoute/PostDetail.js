@@ -14,10 +14,16 @@ import { editorConfiguration } from '../../components/Editor/EditorConfig'
 import Comment from '../../components/Comment/Comment'
 function PostDetail(props) {
     const post = useSelector((state) => state.post)
+    const pInfo = post.detail.info
     const user = useSelector((state) => state.user)
     const comments = useSelector((state) => state.comment)
     const postID = props.match.params.id
     const {id,isAuth, isAdmin} = user.userData
+    const idList = window.localStorage.getItem("PostList")
+    if(!idList.includes(postID)){
+        alert("잘못된 접근")
+        props.history.push("/")
+    }
     console.log(user.userData);
     const dispatch = useDispatch()
     useEffect(async ()=>{
@@ -25,7 +31,6 @@ function PostDetail(props) {
         dispatch(loadComments(postID));
 
     },[])
-    const pInfo = post.detail.info
     console.log(pInfo)
     const cInfo = comments.comments.info;
     console.log(cInfo)
@@ -47,7 +52,7 @@ function PostDetail(props) {
                     </Link>
                 </Col>
                 <Col className="col-md-3 mr-md-3">
-                    <Link to={`/post/${postID}/edit`} className="btn btn-success btn-block">
+                    <Link to={`/posts/${postID}/edit`} className="btn btn-success btn-block">
                         Edit Post
                     </Link>
                 </Col>

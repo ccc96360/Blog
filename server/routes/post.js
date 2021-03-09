@@ -86,11 +86,11 @@ router.post('/', uploadS3.none(),(req, res) =>{
     for(let i = 0; i < category.length; i++ ){
         categories.push([category[i], 1])
     }
-    qry = `insert into categories values ? on duplicate key update categorynum = categorynum + 1`
+    qry = `insert ignore into categories values ? on duplicate key update categorynum = categorynum + 1`
     console.log(categories)
     let categoryUpload = false
     db.query(qry,[categories], function(err, qryRes, fields){
-        qry = `insert into posts_categories(postid, categoryname) values ?`
+        qry = `insert ignore into posts_categories(postid, categoryname) values ?`
         categories = [];
         for(let i = 0; i < category.length; i++ ){
             categories.push([id, category[i]])
@@ -103,7 +103,8 @@ router.post('/', uploadS3.none(),(req, res) =>{
                 categoryUpload = true
                 if(postUpload && categoryUpload){
                     res.status(200).json({
-                        uploadSuccess: true
+                        uploadSuccess: true,
+                        postid: id
                     })
                 }
                 else{
@@ -123,16 +124,25 @@ router.get('/:id', (req,res) =>{
     console.log(postid+"번 게시물 불러온다잉~")
     let qry = `select * from posts where postid = ?`
     db.query(qry, [postid], function(err, qryRes, fields){
+        let resJson = JSON.parse(JSON.stringify(qryRes))
+        console.log("!!!!!!!!!!!!!!!!!!!",resJson.length)
         if(err){
             console.log(err)
             res.status(500).json({
-                onePostLoadSuccess: false
+                onePostLoadSuccess: false,
+
+            })
+        }
+        else if(resJson.length == 0){
+            res.status(200).json({
+                onePostLoadSuccess: false,
+                info: {}
             })
         }
         else{
-            let resJson = JSON.parse(JSON.stringify(qryRes))
             console.log(resJson);
             res.status(200).json({
+                onePostLoadSuccess: true,
                 info: resJson[0]
             })
         }
@@ -251,13 +261,13 @@ router.post("/:id/edit",(req,res)=>{
         console.log(debug.sql);
         if(err){
             res.status(500).json({
-                fileEditSuccess: false,
+                postEditSuccess: false,
                 err:err
             })
         }
         else{
             res.status(200).json({
-                fileEditSuccess: true
+                postEditSuccess: true
             })
         }
     })
