@@ -30,7 +30,7 @@ const uploadS3 = multer({
     limits:{fileSize: 100*1024*1024},
 })
 console.log(uploadS3.storage)
-// /api/post
+// GET /api/post
 // 게시물 전부 불러오기
 router.get('/', (req, res) =>{//req = request res = response
     const id = req.body.id
@@ -57,8 +57,8 @@ router.get('/', (req, res) =>{//req = request res = response
         }
     })
 })
-// /api/post
-// 게시물 업로드
+// POST /api/post
+// 게시물 업로드(CREATE)
 router.post('/', uploadS3.none(),(req, res) =>{
     const {title, owner, contents, fileUrl, category} = req.body
     const date = moment().format("YYYY-MM-DD hh:mm:ss")
@@ -116,8 +116,8 @@ router.post('/', uploadS3.none(),(req, res) =>{
     })
 })
 
-// /api/post/id
-// 특정 게시물 보기
+// GET /api/post/id
+// 특정 게시물 보기(READ)
 router.get('/:id', (req,res) =>{
     const postid = req.params.id
     console.log(postid+"번 게시물 불러온다잉~")
@@ -138,6 +138,8 @@ router.get('/:id', (req,res) =>{
         }
     })
 })
+// POST /:id/delete
+// 특정 게시글 삭제(DELETE)
 router.post('/:id/delete',(req,res)=>{
     const postid = req.params.id
     
@@ -217,6 +219,48 @@ router.post('/:id/delete',(req,res)=>{
         }
     })
 
+})
+// GET /:id/edit
+// 특정 게시글 수정
+router.get('/:id/edit', (req,res) =>{
+    const postid = req.params.id
+    let qry = "select * from posts postid = ?"
+    db.query(qry, [postid], function(err,qryRes,field){
+        if(err){
+            res.status(500).json({
+                err: err
+            })
+        }
+        else{
+            let resJson = JSON.parse(JSON.stringify(qryRes))
+            res.json({
+                info: resJson[0]
+            })
+        }
+    })
+})
+router.post("/:id/edit",(req,res)=>{
+    const postid = req.params.id
+    const {title, owner, contents, fileUrl} = req.body
+    const date = moment().format("YYYY-MM-DD hh:mm:ss")
+    let qry = `update posts set title = ?, owner = ?, contents = ?, imageurl  = ? where postid = ?`
+    console.log("글 내용");
+    console.log(contents);
+    const params = [title, owner, contents, fileUrl, postid]
+    let debug = db.query(qry, params, function(err, qryRes, field){
+        console.log(debug.sql);
+        if(err){
+            res.status(500).json({
+                fileEditSuccess: false,
+                err:err
+            })
+        }
+        else{
+            res.status(200).json({
+                fileEditSuccess: true
+            })
+        }
+    })
 })
 
 // /api/post/image
