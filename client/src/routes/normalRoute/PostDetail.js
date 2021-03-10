@@ -92,9 +92,15 @@ function PostDetail(props) {
                                     {
                                         Array.isArray(categoryInfo) ?  categoryInfo.map(({categoryname}) => {
                                             return(
-                                                <Button color = "info ml-1">
-                                                    {`${categoryname}`}
-                                                </Button>
+                                                <Link
+                                                    to={`/posts/category/${categoryname}`}
+                                                    className = "text-dark text-decoration-none">
+                                                    <span className="ml-1">
+                                                        <Button color = "info ml-1">
+                                                            {`${categoryname}`}
+                                                        </Button>
+                                                    </span>
+                                                </Link>
                                             )
                                         }): <Button>?</Button>
                                     }

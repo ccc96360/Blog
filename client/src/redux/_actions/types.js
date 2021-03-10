@@ -11,6 +11,7 @@ export const POST_DELETE = 'post_delete'
 export const POST_EDIT = 'post_edit'
 export const POST_CATEGORIES = 'post_categories'
 export const POSTS_CATEGORIES = 'posts_categories'
+export const CATEGORY_POSTS = 'category_posts'
 /******************COMMENT********************/
 export const COMMENT_WRITE = 'comment_write'
 export const COMMENT_LOADING = 'comment_loading'

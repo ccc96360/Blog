@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES} from './types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES, CATEGORY_POSTS} from './types'
 
 const route = process.env.REACT_APP_SERVER_ROUTES_POST
 
@@ -57,6 +57,15 @@ export function loadAllCategories(){
     console.log(request)
     return{
         type: POSTS_CATEGORIES,
+        payload: request
+    }
+}
+export function categoryPosts(name){
+    const request = axios.get(`${route}/category/${name}`)
+                        .then(response=>response.data)
+    console.log(request)
+    return{
+        type: CATEGORY_POSTS,
         payload: request
     }
 }

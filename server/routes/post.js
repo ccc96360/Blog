@@ -59,6 +59,49 @@ router.get("/category", (req,res)=>{
         }
     })
 })
+//GET /category/:categoryname
+// 특정 카테고리 게시물 전부 불러오기.
+router.get('/category/:categoryname', (req,res)=>{
+    const name = req.params.categoryname
+    console.log(name);
+    let ids = []
+    let qry = "select postid from posts_categories where categoryname = ?"
+    db.query(qry, [name], function(err, qryRes, field){
+        console.log(qryRes)
+        if(err){
+            res.status(500).json({
+                err:err,
+                message: `${name}카테고리에서 포스트 id가져오기 실패함`
+            })
+        }
+        else{
+            ids = JSON.parse(JSON.stringify(qryRes))
+            console.log(ids);
+            let id = []
+            
+            for(let i = 0; i < ids.length; i++){
+                id.push(JSON.stringify(ids[i].postid))
+            }
+            console.log("ids",ids);
+            console.log(id);
+            qry = "select * from posts where postid in (?)"
+            db.query(qry, [id], function(err2, qryRes2, field){
+                    if(err2){
+                        res.status(500).json({
+                            err:err2
+                        })
+                    }
+                    else{
+                        let resJson = JSON.parse(JSON.stringify(qryRes2))
+                        res.status(200).json({
+                            content: resJson
+                        })
+                    }
+            })
+        }
+    })
+
+})
 // GET /api/post
 // 게시물 전부 불러오기
 router.get('/', (req, res) =>{//req = request res = response

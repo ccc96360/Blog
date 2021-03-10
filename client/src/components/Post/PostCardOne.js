@@ -9,7 +9,7 @@ function PostCardOne(props) {
     const {posts} = props
     const idList = []
     console.log(posts)
-    posts.posts.content.map(({postid, owner, title, contents, date, imageurl, view}) =>{
+    posts.map(({postid, owner, title, contents, date, imageurl, view}) =>{
         console.log(imageurl)
         idList.push(postid)
     })
@@ -18,7 +18,7 @@ function PostCardOne(props) {
     return (
         <Fragment>
             {
-                Array.isArray(posts.posts.content) ? posts.posts.content.map(({postid, owner, title, contents, date, imageurl, view}) =>{
+                Array.isArray(posts) ? posts.map(({postid, owner, title, contents, date, imageurl, view}) =>{
                     return (
                         <div key={postid} className="col-md-4">
                             <Link to={idList.includes(postid)?`/posts/${postid}`:"/"} className="text-dark text-decoration-none">

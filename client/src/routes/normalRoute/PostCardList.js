@@ -31,7 +31,7 @@ function PostCardList() {
                 <Category allCategories={allCategories}/>
             </Row>
             <Row>
-                {posts ? <PostCardOne posts = {posts}/> : GrowingSpinner}
+                {posts ? <PostCardOne posts = {posts.posts.content}/> : GrowingSpinner}
             </Row>
         </Fragment>
     )

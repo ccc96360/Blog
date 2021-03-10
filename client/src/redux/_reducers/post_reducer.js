@@ -1,4 +1,4 @@
-import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES} from '../_actions/types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES, CATEGORY_POSTS} from '../_actions/types'
 
 const initialState = {
     posts :{
@@ -21,6 +21,9 @@ const initialState = {
     },
     categories:{
         posts_categories: []
+    },
+    category_posts:{
+        content: []
     }
 }
 
@@ -40,6 +43,8 @@ export default function(prevState = initialState, action){
             return {...prevState, allCategories: action.payload}
         case POST_CATEGORIES:
             return {...prevState, categories: action.payload}
+        case CATEGORY_POSTS:
+            return {...prevState, category_posts: action.payload}
         default:
             return prevState;
     }

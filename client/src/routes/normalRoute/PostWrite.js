@@ -76,7 +76,7 @@ function PostWrite(props) {
             setValues({
                 ...form,
                 contents:data,
-                fileUrl:process.env.REACT_APP_FILE_URL
+                fileUrl:""
             })
         }
     }
