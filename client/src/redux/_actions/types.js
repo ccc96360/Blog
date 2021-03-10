@@ -16,3 +16,5 @@ export const CATEGORY_POSTS = 'category_posts'
 export const COMMENT_WRITE = 'comment_write'
 export const COMMENT_LOADING = 'comment_loading'
 export const COMMENT_UPLOAD = 'comment_upload'
+/******************SEARCH*********************/
+export const SEARCH_TITLE = 'search_title'
