@@ -30,6 +30,35 @@ const uploadS3 = multer({
     limits:{fileSize: 100*1024*1024},
 })
 console.log(uploadS3.storage)
+
+// GET /category
+// 카테고리 목록 전부 불러오기
+router.get("/category", (req,res)=>{
+    let qry = "delete from categories where categorynum = 0"
+    db.query(qry, function(err,qryRes,field){
+        if(err){
+            console.log("카테고리 제거 실패")
+            console.log(err);
+        }
+        else{
+            console.log("존재 하지 않는 카테고리 제거함")
+        }
+    })
+    qry = "select categoryname from categories"
+    db.query(qry, function(err,qryRes,field){
+        if(err){
+            res.status(500).json({
+                err:err
+            })
+        }
+        else{
+            let resJson = JSON.parse(JSON.stringify(qryRes))
+            res.json({
+                categories: resJson
+            })
+        }
+    })
+})
 // GET /api/post
 // 게시물 전부 불러오기
 router.get('/', (req, res) =>{//req = request res = response
@@ -161,10 +190,6 @@ router.post('/:id/delete',(req,res)=>{
                 err: err
             })
         }
-        let resJson = JSON.parse(JSON.stringify(qryRes))
-        /*console.log(qryRes);
-        console.log(JSON.stringify(qryRes));
-        console.log(resJson);*/
         
     })
     qry = "delete from comments where postid = ? "
@@ -231,7 +256,7 @@ router.post('/:id/delete',(req,res)=>{
 
 })
 // GET /:id/edit
-// 특정 게시글 수정
+// 특정 게시글 수정(Update)
 router.get('/:id/edit', (req,res) =>{
     const postid = req.params.id
     let qry = "select * from posts postid = ?"
@@ -268,6 +293,26 @@ router.post("/:id/edit",(req,res)=>{
         else{
             res.status(200).json({
                 postEditSuccess: true
+            })
+        }
+    })
+})
+
+// GET /:id/category
+// 특정 게시물 카테고리 불러오기.
+router.get("/:id/category",(req,res)=>{
+    const postid = req.params.id
+    let qry = "select categoryname from posts_categories where postid = ?"
+    db.query(qry, [postid],function(err, qryRes, field){
+        if(err){
+            res.status(500).json({
+                err:err
+            })
+        }
+        else{
+            let resJson = JSON.parse(JSON.stringify(qryRes))
+            res.json({
+                posts_categories: resJson
             })
         }
     })
