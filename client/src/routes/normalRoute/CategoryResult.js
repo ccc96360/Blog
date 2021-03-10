@@ -13,7 +13,7 @@ function CategoryResult() {
     },[dispatch, categoryName])
     return (
         <div>
-            <h1> Category: "{categoryName}"</h1>
+            <h4> Category: "{categoryName}"</h4>
             <Row>
                 <PostCardOne posts={posts.category_posts.content}/>
             </Row>
