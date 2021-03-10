@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {Helmet} from 'react-helmet'
 import {Button, Col, Container, Row} from 'reactstrap'
-import {detailPost,deletePost} from '../../redux/_actions/post_action'
+import {detailPost,deletePost, loadPostCategories} from '../../redux/_actions/post_action'
 import {loadComments,uplaodComment} from '../../redux/_actions/comment_action'
 import {CKEditor} from '@ckeditor/ckeditor5-react'
 import { Link, withRouter } from 'react-router-dom'
@@ -15,6 +15,7 @@ import Comment from '../../components/Comment/Comment'
 function PostDetail(props) {
     const post = useSelector((state) => state.post)
     const pInfo = post.detail.info
+    const categoryInfo = post.categories.posts_categories
     const user = useSelector((state) => state.user)
     const comments = useSelector((state) => state.comment)
     const postID = props.match.params.id
@@ -29,9 +30,11 @@ function PostDetail(props) {
     useEffect(async ()=>{
         dispatch(detailPost(postID));
         dispatch(loadComments(postID));
+        dispatch(loadPostCategories(postID));
 
     },[])
     console.log(pInfo)
+    console.log(categoryInfo)
     const cInfo = comments.comments.info;
     console.log(cInfo)
     const onDeleteClick = () => {
@@ -86,12 +89,15 @@ function PostDetail(props) {
                         <Fragment>
                             <div className="font-weight-bold text-big">
                                 <span className="mr-3">
-                                    <Button color = "info ml-1"> 
-                                        Category 불러와야해
-                                    </Button>
-                                    <Button color = "info ml-1"> 
-                                        Category 불러와야해2
-                                    </Button>
+                                    {
+                                        Array.isArray(categoryInfo) ?  categoryInfo.map(({categoryname}) => {
+                                            return(
+                                                <Button color = "info ml-1">
+                                                    {`${categoryname}`}
+                                                </Button>
+                                            )
+                                        }): <Button>?</Button>
+                                    }
                                 </span>
                                 {pInfo.title}
                             </div>

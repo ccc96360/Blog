@@ -44,7 +44,7 @@ router.get("/category", (req,res)=>{
             console.log("존재 하지 않는 카테고리 제거함")
         }
     })
-    qry = "select categoryname from categories"
+    qry = "select * from categories"
     db.query(qry, function(err,qryRes,field){
         if(err){
             res.status(500).json({
@@ -302,6 +302,7 @@ router.post("/:id/edit",(req,res)=>{
 // 특정 게시물 카테고리 불러오기.
 router.get("/:id/category",(req,res)=>{
     const postid = req.params.id
+    console.log(postid,"카테고리 불러온다~");
     let qry = "select categoryname from posts_categories where postid = ?"
     db.query(qry, [postid],function(err, qryRes, field){
         if(err){

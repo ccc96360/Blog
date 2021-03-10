@@ -27,7 +27,7 @@ function PostWrite(props) {
             const dataToSubmit = {title: title, owner: id, contents: contents, fileUrl: imageUrl, category: category.split('#').slice(1)}
             console.log("DATA TO SUBMIT IN WRITE!!!",dataToSubmit);
             dispatch(writePost(dataToSubmit)).then(res=>{
-                props.history.push(`/posts/${res.payload.postid}`)
+                props.history.push(`/`)
             })
         }else{
             alert("카테고리에 #없음!")

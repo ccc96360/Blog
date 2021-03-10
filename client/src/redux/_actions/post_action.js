@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT} from './types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES} from './types'
 
 const route = process.env.REACT_APP_SERVER_ROUTES_POST
 
@@ -47,6 +47,25 @@ export function editPost(id, dataToSubmit){
                         .then(response=>response.data)
     return{
         type: POST_EDIT,
+        payload: request
+    }
+}
+
+export function loadAllCategories(){
+    const request = axios.get(`${route}/category`)
+                        .then(response=>response.data)
+    console.log(request)
+    return{
+        type: POSTS_CATEGORIES,
+        payload: request
+    }
+}
+export function loadPostCategories(id){
+    const request = axios.get(`${route}/${id}/category`)
+                        .then(response=>response.data)
+    console.log(request)
+    return{
+        type: POST_CATEGORIES,
         payload: request
     }
 }
