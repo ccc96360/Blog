@@ -31,7 +31,7 @@ const MyRouter = () => (
             <Route exact path="/search/:searchTerm" component={Auth(Search, null)} />
             <Route exact path="/login" component={Auth(LoginPage, false)} />
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
-            <Redirect from= "*" to="/"/>
+            <Redirect from= "*" to="/default"/>
             </Switch>
         </Container>
         <Footer />

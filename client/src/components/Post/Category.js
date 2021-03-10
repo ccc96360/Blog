@@ -10,7 +10,7 @@ function Category({allCategories}) {
                 Array.isArray(allCategories) ? allCategories.map(({categoryname, categorynum})=>(
                     <div key = {categoryname} className="mx-1 mt-1 my_category">
                         <Link 
-                            to={`post/category/${categoryname}`}
+                            to={`posts/category/${categoryname}`}
                             className ="text-dark text-decoration-none">
                                 <span className="ml-1">
                                         <Button color="info">
