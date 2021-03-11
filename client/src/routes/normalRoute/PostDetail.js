@@ -20,9 +20,8 @@ function PostDetail(props) {
     const comments = useSelector((state) => state.comment)
     const postID = props.match.params.id
     const {id,isAuth, isAdmin} = user.userData
-    const idList = window.localStorage.getItem("PostList")
-    if(!idList.includes(postID)){
-        alert("잘못된 접근")
+    if(!post.posts.allids.includes(parseInt(postID))){
+        alert(`잘못된 접근`)
         props.history.push("/")
     }
     console.log(user.userData);

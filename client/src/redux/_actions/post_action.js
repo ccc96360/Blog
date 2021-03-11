@@ -3,9 +3,10 @@ import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CAT
 
 const route = process.env.REACT_APP_SERVER_ROUTES_POST
 
-export function loadPost(){
-    const request = axios.get(`${route}/`)
+export function loadPost(n){
+    const request = axios.get(`${route}/skip/${n}`)
                         .then(response=>response.data)
+    console.log("!!!!lplplplplpplp!!!!!");
     console.log(request)
     return{
         type: POST_LOADING,

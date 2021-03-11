@@ -2,7 +2,9 @@ import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CAT
 
 const initialState = {
     posts :{
-        content: []
+        count: 0,
+        content: [],
+        allids: []
     },
     detail :{
         onePostLoadSuccess: false,

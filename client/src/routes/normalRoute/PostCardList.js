@@ -13,7 +13,7 @@ function PostCardList() {
     const allCategories = posts.allCategories.categories
     const dispatch = useDispatch()
     useEffect(async ()=>{
-        dispatch(loadPost()).then(response=>{
+        dispatch(loadPost(0)).then(response=>{
             console.log("LOAD POST RESPONS!!!!+++!!!!+!!!")
             console.log(response)
         })

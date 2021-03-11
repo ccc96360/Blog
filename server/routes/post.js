@@ -15,7 +15,7 @@ const db = mydb.db
 // S3설정
 AWS.config.loadFromPath(__dirname+"/../awsconfig.json")
 const s3 = new AWS.S3()
-console.log(s3)
+//console.log(s3)
 const uploadS3 = multer({
     storage: multerS3({
         s3,
@@ -29,7 +29,7 @@ const uploadS3 = multer({
     }),
     limits:{fileSize: 100*1024*1024},
 })
-console.log(uploadS3.storage)
+//console.log(uploadS3.storage)
 
 // GET /category
 // 카테고리 목록 전부 불러오기
@@ -102,10 +102,45 @@ router.get('/category/:categoryname', (req,res)=>{
     })
 
 })
+
+// GET /skip/:skip
+// skip부터 6개 게시글 불러온다.(최신 날짜 순)
+router.get("/skip/:skip", (req,res)=>{
+    const n = req.params.skip
+    let qry = "select postid from posts"
+    const ids = []
+    db.query(qry,function(err, qryRes){
+        let r = JSON.parse(JSON.stringify(qryRes));
+        console.log(r);
+        r.forEach(v => {
+            ids.push(v.postid)
+        });        
+        console.log(ids);
+        qry = `select * from posts order by date desc limit ${n},6`
+        db.query(qry,function(err2,qryRes2,fields){
+            if(err2){
+                console.log(err2);
+                res.status(500).json({
+                    postLoadSuccess: false,
+                    err:err2
+                })
+            }
+            else{
+                let resJson = JSON.parse(JSON.stringify(qryRes2))
+                res.status(200).json({
+                    count: parseInt(n)+6,
+                    content: resJson,
+                    allids: ids
+                })
+            }
+        })
+    })
+})
+
+
 // GET /api/post
 // 게시물 전부 불러오기
 router.get('/', (req, res) =>{//req = request res = response
-    const id = req.body.id
     let qry = `select * from posts`
     const params = []
     db.query(qry, params, function(err, qryRes, fields){

@@ -76,7 +76,7 @@ function PostWrite(props) {
             setValues({
                 ...form,
                 contents:data,
-                imageUrl:"https://devminj.s3.ap-northeast-2.amazonaws.com/upload/defaultImage.png"
+                imageUrl:""
             })
         }
     }
