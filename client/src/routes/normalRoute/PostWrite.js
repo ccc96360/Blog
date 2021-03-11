@@ -23,14 +23,14 @@ function PostWrite(props) {
         const {title, contents, imageUrl, category} = form
         console.log("!!!!",category, typeof(category))
         console.log("!!!!",category.split('#'));
-        if(category.match('#')){
+        if(category.match('#') && category.length > 1){
             const dataToSubmit = {title: title, owner: id, contents: contents, fileUrl: imageUrl, category: category.split('#').slice(1)}
             console.log("DATA TO SUBMIT IN WRITE!!!",dataToSubmit);
             dispatch(writePost(dataToSubmit)).then(res=>{
                 props.history.push(`/`)
             })
         }else{
-            alert("카테고리에 #없음!")
+            alert("카테고리 잘못됨")
         }
     }
     const onChange = (e) => {
@@ -76,7 +76,7 @@ function PostWrite(props) {
             setValues({
                 ...form,
                 contents:data,
-                fileUrl:""
+                imageUrl:"https://devminj.s3.ap-northeast-2.amazonaws.com/upload/defaultImage.png"
             })
         }
     }

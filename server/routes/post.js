@@ -19,7 +19,7 @@ console.log(s3)
 const uploadS3 = multer({
     storage: multerS3({
         s3,
-        bucket: "devminj/upload/",
+        bucket: "devminj/upload",
         region: "ap-northeast-2",
         key(req, file, cb){
             const ext = path.extname(file.originalname);

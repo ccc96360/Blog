@@ -40,7 +40,7 @@ function PostDetail(props) {
     const onDeleteClick = () => {
         if(isAdmin){
             dispatch(deletePost(postID))
-            props.history.push("/test")
+            props.history.push("/")
         }
         else{
             alert("관리자만 접근 할 수 있습니다.")
