@@ -111,7 +111,6 @@ router.get("/skip/:skip", (req,res)=>{
     const ids = []
     db.query(qry,function(err, qryRes){
         let r = JSON.parse(JSON.stringify(qryRes));
-        console.log(r);
         r.forEach(v => {
             ids.push(v.postid)
         });        
@@ -127,8 +126,10 @@ router.get("/skip/:skip", (req,res)=>{
             }
             else{
                 let resJson = JSON.parse(JSON.stringify(qryRes2))
+                console.log("===========================",(parseInt(n)/6+1)*6,ids.length);
                 res.status(200).json({
-                    count: parseInt(n)+6,
+                    loading: true,
+                    count: ids.length,
                     content: resJson,
                     allids: ids
                 })

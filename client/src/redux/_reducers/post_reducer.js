@@ -2,6 +2,7 @@ import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CAT
 
 const initialState = {
     posts :{
+        loading: true,
         count: 0,
         content: [],
         allids: []
@@ -32,21 +33,27 @@ const initialState = {
 export default function(prevState = initialState, action){
     switch(action.type){
         case POST_LOADING:
-            return {...prevState, posts: action.payload}
+            return {...prevState,
+             posts:{loading:action.payload.loading,
+                    count: action.payload.count,
+                    content: [...prevState.posts.content, ...action.payload.content],
+                    allids: action.payload.allids
+                    
+            } }
         case POST_WRITE:
-            return {...prevState, success: action.payload}
+            return {...prevState, success: action.payload, posts:{...prevState.posts, content:[]}}
         case POST_DETAIL:
-            return {...prevState, detail: action.payload}
+            return {...prevState, detail: action.payload, posts:{...prevState.posts, content:[]}}
         case POST_DELETE:
-            return {...prevState, success: action.payload}
+            return {...prevState, success: action.payload, posts:{...prevState.posts, content:[]}}
         case POST_EDIT:
-            return {...prevState, posts: action.payload}
+            return {...prevState, posts: action.payload, posts:{...prevState.posts, content:[]}}
         case POSTS_CATEGORIES:
             return {...prevState, allCategories: action.payload}
         case POST_CATEGORIES:
-            return {...prevState, categories: action.payload}
+            return {...prevState, categories: action.payload, posts:{...prevState.posts, content:[]}}
         case CATEGORY_POSTS:
-            return {...prevState, category_posts: action.payload}
+            return {...prevState, category_posts: action.payload, posts:{...prevState.posts, content:[]}}
         default:
             return prevState;
     }
