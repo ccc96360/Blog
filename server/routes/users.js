@@ -11,11 +11,7 @@ const {auth} = require('../middleware/auth')
 
 router.post('/register', (req, res) =>{//req = request res = response
     console.log(req.body)
-    const id = req.body.id
-    const name = req.body.name
-    const email = req.body.email
-    const password = req.body.password
-    const role = req.body.role
+    const {id,name,email,password,role} = req.body
     bcrpyt.hash(password, 10, function(err, hashPassword){
         console.log("Hashed passwd:" + hashPassword)
         let qry = `insert into users(id, name, email, password, role) values(?,?,?,?,?)`
