@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {Helmet} from 'react-helmet'
 import {Button, Col, Container, Row} from 'reactstrap'
-import {detailPost,deletePost, loadPostCategories} from '../../redux/_actions/post_action'
+import {detailPost,deletePost, loadPostCategories, postReset} from '../../redux/_actions/post_action'
 import {loadComments} from '../../redux/_actions/comment_action'
 import {CKEditor} from '@ckeditor/ckeditor5-react'
 import { Link, withRouter } from 'react-router-dom'
@@ -30,7 +30,9 @@ function PostDetail(props) {
         dispatch(detailPost(postID));
         dispatch(loadComments(postID));
         dispatch(loadPostCategories(postID));
-
+        return () => {
+            dispatch(postReset())
+        }
     },[])
     console.log(pInfo)
     console.log(categoryInfo)

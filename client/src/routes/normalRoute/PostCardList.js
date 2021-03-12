@@ -25,7 +25,7 @@ function PostCardList() {
             console.log("LOAD ALL CATEGORIES");
             console.log(res);
         })
-    },[])
+    },[dispatch])
     //For Infinite Scroll
     const skipNumberRef = useRef(0)
     const postCountRef = useRef(0)
@@ -40,7 +40,7 @@ function PostCardList() {
         useEffect(() => {
             const observer = new IntersectionObserver(([entry]) => {
                 setVisible(entry.isIntersecting);
-                if(entry.isIntersecting && wait.current){
+                if(entry.isIntersecting){
                     wait.current=false
                     let remainPostCount = postCountRef.current - skipNumberRef.current
                     if(remainPostCount >= 0){
