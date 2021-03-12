@@ -13,7 +13,6 @@ const db = mydb.db
 // Comment Loading
 router.get('/:id', (req,res) =>{
     const postid = req.params.id
-    console.log(postid+"번 게시물 댓글들~")
     let qry = `select commentid, owner, contents, date from comments where postid = ?`
     db.query(qry, [postid], function(err, qryRes, fields){
         if(err){
@@ -38,11 +37,9 @@ router.post('/:id', (req,res) =>{
     const postid = req.params.id
     const {owner, contents} = req.body
     const date = moment().format("YYYY-MM-DD hh:mm:ss")
-    console.log(postid+"번 게시물 댓글들~")
     let qry = `insert into comments(owner,contents,postid,date) values(?,?,\'${postid}\', \'${date}\')`
     db.query(qry, [owner,contents], function(err, qryRes, fields){
         if(err){
-            console.log(err)
             res.status(500).json({
                 commentUpload: false
             })
@@ -51,14 +48,12 @@ router.post('/:id', (req,res) =>{
             qry = `select commentid, owner, contents, date from comments where postid = ?`
             db.query(qry, [postid], function(err, qryRes, fields){
                 if(err){
-                    console.log(err)
                     res.status(500).json({
                         onePostLoadSuccess: false
                     })
                 }
                 else{
                     let resJson = JSON.parse(JSON.stringify(qryRes))
-                    console.log(resJson[resJson.length-1]);
                     res.status(200).json({
                         info: resJson[resJson.length-1]
                     })

@@ -10,15 +10,12 @@ const jwt = require('jsonwebtoken')
 const {auth} = require('../middleware/auth')
 
 router.post('/register', (req, res) =>{//req = request res = response
-    console.log(req.body)
     const {id,name,email,password,role} = req.body
     bcrpyt.hash(password, 10, function(err, hashPassword){
-        console.log("Hashed passwd:" + hashPassword)
         let qry = `insert into users(id, name, email, password, role) values(?,?,?,?,?)`
         const params = [id, name, email, hashPassword, role]
         db.query(qry, params, function(err, qryRes, fields){
             if(err){
-                console.log(err)
                 res.status(500).json({
                     success: false,
                     err: err
@@ -36,10 +33,8 @@ router.post('/register', (req, res) =>{//req = request res = response
 router.post('/login', (req, res) =>{
     const id = req.body.id//로그인 시도 하는 아이디
     const password = req.body.password 
-    console.log(id+" "+password)
     let idqry = "select id, password from users where id = ?"
     db.query(idqry, [id], function(err, rows, fields){
-        console.log(rows)
         if(rows.length == 0){
             return res.status(500).json({
                 loginSuccess: false,
@@ -47,7 +42,6 @@ router.post('/login', (req, res) =>{
             })
         }
         if(err){
-            console.log(err)
             res.json({
                 loginSuccess: false,
                 message: "ERR!!"
@@ -63,14 +57,12 @@ router.post('/login', (req, res) =>{
                     let updateQurey = "update users set token = ? where id = ?"
                     db.query(updateQurey,[token,id],function(err){
                         if(err){
-                            console.log(err)
                             res.json({
                                 loginSuccess:false,
                                 message: "Token 생성 실패"
                             })
                         }
                         else{
-                            console.log("TOKEN!!!"+token)
                             res.cookie("x_auth",token).status(200).json({loginSuccess: true, userID: id, message: "로그인성공!"})
                         }
                     })

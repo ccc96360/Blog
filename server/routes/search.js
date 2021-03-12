@@ -11,11 +11,9 @@ const db = mydb.db
 // 게시물 전부 불러오기
 router.get('/:search', (req, res) =>{//req = request res = response
     const keyword = req.params.search
-    console.log(keyword);
     let qry = `select * from posts`
     db.query(qry, function(err, qryRes, fields){
         if(err){
-            console.log(err)
             res.status(500).json({
                 postLoadSuccess: false,
                 err: err

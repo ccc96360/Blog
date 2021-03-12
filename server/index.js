@@ -20,6 +20,6 @@ app.get('/api/hello',(req,res) =>{
 })
  
 const port = process.env.PORT
-app.listen(port, ()=> console.log(`Example app test ${port}`))
+app.listen(port, ()=> console.log(`App Listening`))
 
 

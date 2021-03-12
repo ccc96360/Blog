@@ -13,21 +13,13 @@ let auth = (req, res, next)=>{
             isAuth:false, error:true, meesage:"cookie에 token없음"
         })
     }
-    console.log("TOKEEENNN!!!"+token)
     // 토큰을 복호화 한후 유저를 찾는다.
     jwt.verify(token, 'secretToken',function(err, decoded){
         const userID = decoded
         let qry = "select * from users where id = ?"
         db.query(qry,[userID],(err, rows, fields) => {
             const resJson = JSON.parse(JSON.stringify(rows))
-            console.log(resJson)
-            console.log(token)
-            console.log(rows.length+" "+resJson.length)
-            console.log(rows.length === 0)
-            console.log(token !== resJson[0].token)
-
             if(err){
-                console.log(err)
                 return res.json({
                     isAuth:false, error:true, meesage:"Back에서 auth중 에러 발생", errMessage:err
                 })

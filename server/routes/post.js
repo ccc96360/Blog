@@ -15,7 +15,7 @@ const db = mydb.db
 // S3설정
 AWS.config.loadFromPath(__dirname+"/../awsconfig.json")
 const s3 = new AWS.S3()
-//console.log(s3)
+
 const uploadS3 = multer({
     storage: multerS3({
         s3,
@@ -29,7 +29,6 @@ const uploadS3 = multer({
     }),
     limits:{fileSize: 100*1024*1024},
 })
-//console.log(uploadS3.storage)
 
 // GET /category
 // 카테고리 목록 전부 불러오기
@@ -37,8 +36,7 @@ router.get("/category", (req,res)=>{
     let qry = "delete from categories where categorynum = 0"
     db.query(qry, function(err,qryRes,field){
         if(err){
-            console.log("카테고리 제거 실패")
-            console.log(err);
+            console.log(err)
         }
         else{
             console.log("존재 하지 않는 카테고리 제거함")
@@ -63,11 +61,11 @@ router.get("/category", (req,res)=>{
 // 특정 카테고리 게시물 전부 불러오기.
 router.get('/category/:categoryname', (req,res)=>{
     const name = req.params.categoryname
-    console.log(name);
+    
     let ids = []
     let qry = "select postid from posts_categories where categoryname = ?"
     db.query(qry, [name], function(err, qryRes, field){
-        console.log(qryRes)
+        
         if(err){
             res.status(500).json({
                 err:err,
@@ -76,14 +74,14 @@ router.get('/category/:categoryname', (req,res)=>{
         }
         else{
             ids = JSON.parse(JSON.stringify(qryRes))
-            console.log(ids);
+            
             let id = []
             
             for(let i = 0; i < ids.length; i++){
                 id.push(JSON.stringify(ids[i].postid))
             }
-            console.log("ids",ids);
-            console.log(id);
+            
+            
             qry = "select * from posts where postid in (?)"
             db.query(qry, [id], function(err2, qryRes2, field){
                     if(err2){
@@ -114,11 +112,11 @@ router.get("/skip/:skip", (req,res)=>{
         r.forEach(v => {
             ids.push(v.postid)
         });        
-        console.log(ids);
+        
         qry = `select * from posts order by date desc limit ${n},6`
         db.query(qry,function(err2,qryRes2,fields){
             if(err2){
-                console.log(err2);
+                
                 res.status(500).json({
                     postLoadSuccess: false,
                     err:err2
@@ -126,7 +124,7 @@ router.get("/skip/:skip", (req,res)=>{
             }
             else{
                 let resJson = JSON.parse(JSON.stringify(qryRes2))
-                console.log("===========================",(parseInt(n)/6+1)*6,ids.length);
+                
                 res.status(200).json({
                     loading: true,
                     count: ids.length,
@@ -146,7 +144,7 @@ router.get('/', (req, res) =>{//req = request res = response
     const params = []
     db.query(qry, params, function(err, qryRes, fields){
         if(err){
-            console.log(err)
+            
             res.status(500).json({
                 postLoadSuccess: false,
                 err: err
@@ -155,9 +153,9 @@ router.get('/', (req, res) =>{//req = request res = response
         else{
             let resJson = JSON.parse(JSON.stringify(qryRes))
             for(let i = 0; i < resJson.length; i++){
-                console.log(resJson[i].postid);
-                console.log(resJson[i].contents);
-                console.log(resJson[i].imageurl);
+                
+                
+                
             }
             res.status(200).json({
                 content: resJson
@@ -175,8 +173,8 @@ router.post('/', uploadS3.none(),(req, res) =>{
     let params = [title, owner, contents, fileUrl, date]
     db.query(qry, params, function(err, qryRes, fields){
         if(err){
-            console.log("/api/post/ ERR!")
-            console.log(err)
+            
+            
         }
         else{
             postUpload = true
@@ -185,17 +183,13 @@ router.post('/', uploadS3.none(),(req, res) =>{
     let id;
     db.query("select last_insert_id()",[], function(err, qryRes, fields){
         let resJson = JSON.parse(JSON.stringify(qryRes))
-        console.log("lastID");
-        console.log(resJson);
         id = resJson[0]["last_insert_id()"]
-        console.log(id);
     })
     let categories =[];
     for(let i = 0; i < category.length; i++ ){
         categories.push([category[i], 1])
     }
     qry = `insert ignore into categories values ? on duplicate key update categorynum = categorynum + 1`
-    console.log(categories)
     let categoryUpload = false
     db.query(qry,[categories], function(err, qryRes, fields){
         qry = `insert ignore into posts_categories(postid, categoryname) values ?`
@@ -205,7 +199,7 @@ router.post('/', uploadS3.none(),(req, res) =>{
         }
         db.query(qry, [categories], function(err, qryRes, fields){
             if(err){
-                console.log(err)
+                console.log(err);
             }
             else{
                 categoryUpload = true
@@ -229,13 +223,13 @@ router.post('/', uploadS3.none(),(req, res) =>{
 // 특정 게시물 보기(READ)
 router.get('/:id', (req,res) =>{
     const postid = req.params.id
-    console.log(postid+"번 게시물 불러온다잉~")
+    
     let qry = `select * from posts where postid = ?`
     db.query(qry, [postid], function(err, qryRes, fields){
         let resJson = JSON.parse(JSON.stringify(qryRes))
-        console.log("!!!!!!!!!!!!!!!!!!!",resJson.length)
+        
         if(err){
-            console.log(err)
+            
             res.status(500).json({
                 onePostLoadSuccess: false,
 
@@ -248,7 +242,7 @@ router.get('/:id', (req,res) =>{
             })
         }
         else{
-            console.log(resJson);
+            
             res.status(200).json({
                 onePostLoadSuccess: true,
                 info: resJson[0]
@@ -279,8 +273,8 @@ router.post('/:id/delete',(req,res)=>{
                 err: err
             })
         }
-        console.log("===Delete Comments===");
-        console.log(qryRes);
+        
+        
     })
     qry = "select categoryname from posts_categories where postid = ?"
     db.query(qry, [postid], function(err, qryRes, fields){
@@ -292,14 +286,14 @@ router.post('/:id/delete',(req,res)=>{
         }
         else{
             let resJson = JSON.parse(JSON.stringify(qryRes))
-            console.log(resJson);
-            console.log(resJson.length);
+            
+            
             const names = []
             for(let i = 0; i < resJson.length; i++){
                 names.push((resJson[i].categoryname))
             }
-            console.log(names);
-            console.log(names.join());
+            
+            
             
             qry = "update categories set categorynum = categorynum - 1 where categoryname in (?)"
             db.query(qry, [names],function(err2,qryRes2, fields){
@@ -310,8 +304,8 @@ router.post('/:id/delete',(req,res)=>{
                     })
                 }
                 else{
-                    console.log("UPDATE CATEGORIES");
-                    console.log(qryRes2);
+                    
+                    
                     qry = "delete from posts_categories where postid = ?"
                     db.query(qry, [postid], function(err3,qryRes2,fields){
                         if(err3){
@@ -321,8 +315,8 @@ router.post('/:id/delete',(req,res)=>{
                             })
                         }
                         else{
-                            console.log("DELETE POSTS_CATEGORIES");
-                            console.log(qryRes2);
+                            
+                            
                             res.status(200).json({
                                 deleteSucces:true
                             })
@@ -358,11 +352,11 @@ router.post("/:id/edit",(req,res)=>{
     const {title, owner, contents, fileUrl} = req.body
     const date = moment().format("YYYY-MM-DD hh:mm:ss")
     let qry = `update posts set title = ?, owner = ?, contents = ?, imageurl  = ? where postid = ?`
-    console.log("글 내용");
-    console.log(contents);
+    
+    
     const params = [title, owner, contents, fileUrl, postid]
     let debug = db.query(qry, params, function(err, qryRes, field){
-        console.log(debug.sql);
+        
         if(err){
             res.status(500).json({
                 postEditSuccess: false,
@@ -381,7 +375,7 @@ router.post("/:id/edit",(req,res)=>{
 // 특정 게시물 카테고리 불러오기.
 router.get("/:id/category",(req,res)=>{
     const postid = req.params.id
-    console.log(postid,"카테고리 불러온다~");
+    
     let qry = "select categoryname from posts_categories where postid = ?"
     db.query(qry, [postid],function(err, qryRes, field){
         if(err){
@@ -400,9 +394,9 @@ router.get("/:id/category",(req,res)=>{
 
 // /api/post/image
 router.post('/image',uploadS3.array("upload", 5), async(req, res, next)=>{
-    console.log("/api/post/image")
+    
     try {
-        console.log(req.files.map((v) => v.location));
+        
         res.json({
             upload:true,
             url: req.files.map((v)=> v.location)
