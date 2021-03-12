@@ -4,4 +4,7 @@
 #config
 /models/Config.js
 
+.env
+awsconfig.json
+
 
