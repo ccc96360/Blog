@@ -25,5 +25,4 @@ function Category({allCategories}) {
         </>
     )
 }
-
 export default Category

@@ -1,4 +1,4 @@
-import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES, CATEGORY_POSTS} from '../_actions/types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES, CATEGORY_POSTS, POSTS_RESET} from '../_actions/types'
 
 const initialState = {
     posts :{
@@ -27,19 +27,20 @@ const initialState = {
     },
     category_posts:{
         content: []
-    }
+    },
 }
 
 export default function(prevState = initialState, action){
     switch(action.type){
         case POST_LOADING:
             return {...prevState,
-             posts:{loading:action.payload.loading,
-                    count: action.payload.count,
-                    content: [...prevState.posts.content, ...action.payload.content],
-                    allids: action.payload.allids
-                    
-            } }
+                    posts:{loading:action.payload.loading,
+                            count: action.payload.count,
+                            content: [...prevState.posts.content, ...action.payload.content],
+                            allids: action.payload.allids
+                    },
+                    category_posts:{content:[]}
+            }
         case POST_WRITE:
             return {...prevState, success: action.payload, posts:{...prevState.posts, content:[]}}
         case POST_DETAIL:
@@ -54,6 +55,8 @@ export default function(prevState = initialState, action){
             return {...prevState, categories: action.payload, posts:{...prevState.posts, content:[]}}
         case CATEGORY_POSTS:
             return {...prevState, category_posts: action.payload, posts:{...prevState.posts, content:[]}}
+        case POSTS_RESET:
+            return {...prevState, posts:{content:[]}}
         default:
             return prevState;
     }

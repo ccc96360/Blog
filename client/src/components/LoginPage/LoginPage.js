@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux';
 import {loginUser} from '../../redux/_actions/user_action';
 import {Formik} from 'formik'
@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import { Form, Input, Button, Checkbox, Typography } from 'antd';
 import Icon from '@ant-design/icons';
 import {withRouter} from 'react-router-dom'
+import { postReset } from '../../redux/_actions/post_action';
 
 const {Title} = Typography
 
@@ -20,6 +21,11 @@ function LoginPage(props) {
     const handleRememberMe = () => {
         setRememberMe(!rememberMe)
     }
+    useEffect(() => {
+        return () => {
+            dispatch(postReset())
+        }
+    }, [])
     const initialID = localStorage.getItem("rememberMe") ? localStorage.getItem("rememberMe") : '';
     return(
         <Formik 

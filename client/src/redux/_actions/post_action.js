@@ -1,12 +1,12 @@
 import axios from 'axios'
-import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES, CATEGORY_POSTS} from './types'
+import {POST_LOADING, POST_WRITE, POST_DETAIL, POST_DELETE, POST_EDIT, POSTS_CATEGORIES, POST_CATEGORIES, CATEGORY_POSTS, POSTS_RESET} from './types'
 
 const route = process.env.REACT_APP_SERVER_ROUTES_POST
 
 export function loadPost(n){
     const request = axios.get(`${route}/skip/${n}`)
                         .then(response=>response.data)
-    console.log("!!!!lplplplplpplp!!!!!");
+    console.log("!!!!lplplplplpplp!!!!!",n);
     console.log(request)
     return{
         type: POST_LOADING,
@@ -77,5 +77,10 @@ export function loadPostCategories(id){
     return{
         type: POST_CATEGORIES,
         payload: request
+    }
+}
+export function postReset(){
+    return{
+        type: POSTS_RESET,
     }
 }

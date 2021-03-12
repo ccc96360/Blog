@@ -8,6 +8,7 @@ function CategoryResult() {
     const dispatch = useDispatch()
     let {categoryName} = useParams()
     const posts = useSelector(state => state.post)
+    console.log(posts);
     useEffect(()=>{
         dispatch(categoryPosts(categoryName))
     },[dispatch, categoryName])

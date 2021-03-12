@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {registerUser} from '../../redux/_actions/user_action';
 import {useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {Form, Input, Button,} from 'antd';
+import { postReset } from '../../redux/_actions/post_action';
 
 const formItemLayout = {
     labelCol: {
@@ -31,6 +32,11 @@ const tailFormItemLayout = {
 
 function RegisterPage(props) {
     const dispatch = useDispatch()
+    useEffect(() => {
+        return () => {
+            dispatch(postReset())
+        }
+    }, [])
     return(
         <Formik
             initialValues ={{

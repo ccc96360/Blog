@@ -22,11 +22,13 @@ function PostCardOne(props) {
                                     <CardBody>
                                         <CardTitle className="text-truncate d-flex justify-content-between">
                                             <span className="text-truncate">{title}</span>
+                                            {/*
                                             <span>
                                                 <FontAwesomeIcon icon={faMouse} />
                                                 &nbsp;&nbsp;
                                                 <span>{view}</span>
                                             </span>
+                                            */}
                                         </CardTitle>
                                         <Row>
                                             <Button color="primary" className="p-2 btn-block">

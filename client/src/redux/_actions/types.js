@@ -12,6 +12,7 @@ export const POST_EDIT = 'post_edit'
 export const POST_CATEGORIES = 'post_categories'
 export const POSTS_CATEGORIES = 'posts_categories'
 export const CATEGORY_POSTS = 'category_posts'
+export const POSTS_RESET = 'category_posts'
 /******************COMMENT********************/
 export const COMMENT_WRITE = 'comment_write'
 export const COMMENT_LOADING = 'comment_loading'
