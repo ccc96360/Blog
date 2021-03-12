@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React,{useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux';
 import {loginUser} from '../../redux/_actions/user_action';
@@ -75,12 +74,10 @@ function LoginPage(props) {
                     values,
                     touched,
                     errors,
-                    dirty,
                     isSubmitting,
                     handleChange,
                     handleBlur,
                     handleSubmit,
-                    handleReset,
                 } = props;
                 return(
                     <div className = "app">

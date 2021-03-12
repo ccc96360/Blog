@@ -12,10 +12,8 @@ import { writePost } from '../../redux/_actions/post_action'
 function PostWrite(props) {
     dotenv.config()
     const dispatch = useDispatch()
-    const post = useSelector(state => state.post)
-    const pInfo = post.detail.info
     const user = useSelector((state) => state.user)
-    const {id,isAuth, isAdmin} = user.userData
+    const {id} = user.userData
     const [form, setValues] = useState({title: "", contents: "", imageUrl: "", category:""})
 
     const onSubmit = async(e)=>{

@@ -7,15 +7,13 @@ import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 import {editorConfiguration} from '../../components/Editor/EditorConfig'
 import Myinit from '../../components/Editor/UploadAdapter'
 import dotenv from 'dotenv'
-import { editPost, writePost } from '../../redux/_actions/post_action'
+import { editPost} from '../../redux/_actions/post_action'
 
 function PostEdit(props) {
     dotenv.config()
     const dispatch = useDispatch()
     const post = useSelector(state => state.post)
     const pInfo = post.detail.info
-    const user = useSelector((state) => state.user)
-    const {id,isAuth, isAdmin} = user.userData
     const [form, setValues] = useState({title: pInfo.title, contents: pInfo.contents, imageUrl: pInfo.imageurl})
     const onSubmit = async(e)=>{
         await e.preventDefault();

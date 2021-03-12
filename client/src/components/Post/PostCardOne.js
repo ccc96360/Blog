@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
-import {Row, Card, CardImg, CardBody, CardTitle, Button, Badge} from 'reactstrap'
+import {Row, Card, CardImg, CardBody, CardTitle, Button} from 'reactstrap'
 import {Link, withRouter} from 'react-router-dom'
+/* 나중에 조회수 댓글수를 표시하기 위한 아이콘에 쓰일 예정
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMouse} from '@fortawesome/free-solid-svg-icons'
-
+*/
 function PostCardOne(props) {
     console.log("PostCardOne");
     const {posts} = props

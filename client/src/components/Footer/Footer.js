@@ -1,5 +1,4 @@
 import React from 'react'
-import Icon from '@ant-design/icons';
 import {Col, Row} from "reactstrap"
 import '../../assets/custom.scss'
 function Footer() {

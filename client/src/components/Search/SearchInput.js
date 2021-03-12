@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { withRouter } from 'react-router'
 
 function SearchInput(props) {
-    const dispatch = useDispatch()
     const [form, setValues] = useState({searchBy: ""})
 
     const onChange = (e) =>{

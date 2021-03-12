@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useRef, useState } from 'react'
 import { useDispatch } from "react-redux"
 import { Button, Form, FormGroup, Input, Row } from 'reactstrap'
-import {uplaodComment, loadComments} from "../../redux/_actions/comment_action"
+import {uplaodComment} from "../../redux/_actions/comment_action"
 function Comment({id, userid, isAuth}) {
     const dispatch = useDispatch()
     const [form, setForm] = useState({contents: ""})

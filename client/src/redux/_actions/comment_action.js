@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {COMMENT_LOADING,COMMENT_UPLOAD,COMMENT_WRITE} from './types'
+import {COMMENT_LOADING,COMMENT_UPLOAD} from './types'
 
 const route = process.env.REACT_APP_SERVER_ROUTES_COMMENT
 

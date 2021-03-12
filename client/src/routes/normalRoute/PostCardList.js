@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import React, { Fragment,  useEffect, useRef, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {loadAllCategories, loadPost} from '../../redux/_actions/post_action'
 import { withRouter } from 'react-router-dom'

@@ -1,4 +1,3 @@
-import React from 'react';
 import MyRouter from './routes/Router'
 import "bootstrap/dist/css/bootstrap.min.css"
 

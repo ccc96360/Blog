@@ -9,15 +9,8 @@ import SearchInput from '../Search/SearchInput';
 
 function NavBar() {
     const user = useSelector(state => state.user)
-    const [visible, setVisible] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
-    const showDrawer = () => {
-      setVisible(true)
-    };
-  
-    const onClose = () => {
-      setVisible(false)
-    };
+
     useEffect(() => {
       setIsOpen(false)
     }, [user])
